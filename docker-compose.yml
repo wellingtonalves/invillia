@@ -1,0 +1,38 @@
+version: "3"
+services:
+  db:
+    image: mariadb
+    restart: always
+    container_name: db-invillia
+    environment:
+      MYSQL_ROOT_PASSWORD: 'invillia_pass'
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    command: --init-file /docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - invillia
+    ports:
+      - 3306:3306
+  api:
+    depends_on:
+      - db
+    build:
+      args:
+        user: invillia
+        uid: 1000
+      context: ./docker
+      dockerfile: Dockerfile
+    image: invillia
+    container_name: app-invillia
+    entrypoint: /docker-entrypoint.sh
+    restart: always
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - 8000:8000
+    networks:
+      - invillia
+networks:
+  invillia:
+    driver: bridge
