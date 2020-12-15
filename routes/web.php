@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::namespace('App\Http\Controllers')->group(function (){
+    Route::get('login', 'LoginController@index')->name('login');
+    Route::post('auth', 'LoginController@auth')->name('auth');
+
+    Route::group(['middleware' => ['auth']], function (){
+        Route::get('/', function () {
+            return view('app');
+        });
+
+        Route::post('upload', 'XmlController@upload')->name('upload');
+
+
+        Route::get('logout', 'LoginController@logout')->name('logout');
+    });
 });
