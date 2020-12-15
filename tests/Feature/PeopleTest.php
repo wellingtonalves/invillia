@@ -3,19 +3,20 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class PeopleTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function testBasicTest()
+    public function testAllPeople()
     {
-        $response = $this->get('/');
-
+        $this->withoutMiddleware();
+        $response = $this->get('/api/people');
         $response->assertStatus(200);
     }
 }

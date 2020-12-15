@@ -12,7 +12,13 @@ class XmlController extends Controller
      */
     public function upload(XmlRequest $request)
     {
-        $file = json_encode(simplexml_load_file($request->file('file')));
-        XmlJob::dispatch($file);
+        try {
+            $file = json_encode(simplexml_load_file($request->file('file')));
+            XmlJob::dispatch($file);
+
+            return redirect()->back()->with('message', 'Successful upload');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Error on upload');
+        }
     }
 }

@@ -10,4 +10,12 @@ class Log extends Model
     use HasFactory;
 
     protected $fillable = ['data', 'status'];
+
+    /**
+     * @return mixed
+     */
+    public function getDataAttribute()
+    {
+        return json_decode($this->attributes['data']);
+    }
 }

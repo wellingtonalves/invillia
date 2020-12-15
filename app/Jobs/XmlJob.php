@@ -6,7 +6,6 @@ use App\Core\Http\Xml\Xml;
 use App\Core\Http\Xml\XmlPerson;
 use App\Core\Http\Xml\XmlShipOrder;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -36,7 +35,7 @@ class XmlJob implements ShouldQueue
     public function handle()
     {
 
-        Xml::load(json_decode($this->xml))
+        return Xml::load(json_decode($this->xml))
             ->next(app(XmlPerson::class))
             ->next(app(XmlShipOrder::class));
     }

@@ -6,6 +6,7 @@ php artisan key:generate &&
 php artisan migrate &&
 php artisan passport:install &&
 php artisan db:seed &&
+service supervisor start &&
 
 echo "########################################################" &&
 echo " Usuario: invillia@invillia.com.br - Senha: password    " &&

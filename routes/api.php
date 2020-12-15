@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->group( function () {
+Route::namespace('App\Http\Controllers\Api')->group(function () {
+
+    Route::post('login', 'AuthApiController@login');
+
+    Route::middleware('auth:api')->group(function () {
+        Route::apiResource('people', 'PersonApiController')->only(['index', 'show']);
+        Route::apiResource('ship-orders', 'ShipOrderApiController')->only(['index', 'show']);
+        Route::apiResource('logs', 'LogApiController')->only(['index', 'show']);
+        Route::get('user', 'AuthApiController@user');
+    });
 });

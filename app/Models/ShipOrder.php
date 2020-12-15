@@ -16,11 +16,28 @@ class ShipOrder extends Model
         'items',
     ];
 
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function person()
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(Person::class, 'person_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShipToAttribute()
+    {
+        return json_decode($this->attributes['ship_to']);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getItemsAttribute()
+    {
+        return json_decode($this->attributes['items']);
     }
 }

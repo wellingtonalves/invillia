@@ -16,7 +16,8 @@
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "ext-simplexml": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-http": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
